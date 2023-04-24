@@ -1,11 +1,18 @@
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../provider/AuthProvider';
 
 
 
 
 const Login = () => {
+
+
+const {signIn} = useContext(AuthContext);
+
+
+
 
 const handleLogin = event => {
   event.preventDefault ();
@@ -13,9 +20,18 @@ const handleLogin = event => {
     const  form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log (email, password)
+    console.log (email, password);
 
+
+signIn(email , password)
+.then (result =>{
+  const loggedUser = result.user;
+  console.log (loggedUser)
+})
   
+.catch (error =>{
+  console.log (error)
+})
 
 }
 
@@ -53,6 +69,7 @@ const handleLogin = event => {
      <button className="btn btn-active btn-link">Are you user pls register here?</button>
      </Link>
     </div>
+ 
   </div>
 </div>
     )
